@@ -25,8 +25,11 @@ public class TrustpilotFetcher {
             // Navigate to next page
             if (nextButton != null) {
                 String nextPageUrl = nextButton.attr("abs:href");
+                if (!nextButton.hasAttr("href")) {
+                    break;
+                }
                 doc = Jsoup.connect(nextPageUrl).get();
-                nextButton = doc.selectFirst("data-pagination-button-next-link");
+                nextButton = doc.getElementsByAttribute("data-pagination-button-next-link").first();
             }
 
             // Extract data from current page
